@@ -1,33 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="user">
 
+	<!-- 쿼리문 작성 -->
 
+	<!-- personVo 매핑 -->
+	<!-- 
+	<resultMap id="resultMapPersonVo" type="PersonVo">
+		<result column="person_id" property="personId"></result>
+		<result column="name" property="name"></result>
+		<result column="hp" property="hp"></result>
+		<result column="company" property="company"></result>
+	</resultMap>
+	 -->
 
 	<!-- 로그인 -->
-	<select id="SelectByIdPw" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
-	<![CDATA[
-	  select no,
-             name  
-      from users
-      where id=#{id}
-      and password=#{password}
-	]]>
+	<select id="selectByIdPw" parameterType="UserVo" resultType="UserVo">
+		<![CDATA[
+			select no, id, password as pw, name, gender 
+			from users
+			where id = #{ id }
+			and password = #{ pw }
+		]]>
 	</select>
-	
-		<!-- 로그인 -->
-	<select id="SelectByIdPw" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
-	<![CDATA[
-	  select no,
-             name  
-      from users
-      where id=#{id}
-      and password=#{password}
-	]]>
-	</select>
-	
-	
-	
-	
+
+	<!-- 추가 insert -->
+	<insert id="userInsert" parameterType="UserVo">
+		<![CDATA[
+			insert into users
+			value (null, #{ id }, #{ pw }, #{ name }, #{ gender })
+		]]>
+	</insert>
+
+	<!-- 수정 update -->
+	<update id="userUpdate" parameterType="UserVo">
+		<![CDATA[
+			update users
+			set password as pw = #{ pw },
+				name = #{ name },
+			    gender = #{ gender }
+			where id = #{ id }
+		]]>
+	</update>
+
+	<!-- 삭제 delete -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete from users where id = #{ id }
+		]]>
+	</delete>
+
+
+
 </mapper>

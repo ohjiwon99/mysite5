@@ -24,14 +24,29 @@ public class UserService {
 		System.out.println(authUser);
 		return authUser;
 	}
+	// 회원가입
+		public int exeJoin(UserVo userVo) {
+			System.out.println("UserService.exeJoin()");
 
-	//로그아웃
-	public UserVo exeLogout(UserVo userVo) {
+			int count = userDao.userInsert(userVo);
 
-		System.out.println("UserService.exeLogout");
+			return count;
+		}
 
-		UserVo authUser = userDao.userSelectByIdPw(userVo);
-		System.out.println(authUser);
-		return authUser;
-	}
+		// 회원정보수정
+		public int exeModify(UserVo userVo) {
+			System.out.println("UserService.exeModify()");
+
+			int count = userDao.userModify(userVo);
+			return count;
+		}
+
+		// 삭제
+		public int exeDelete(int no) {
+			System.out.println("UserService.exeDelete()");
+
+			int count = userDao.userDelete(no);
+
+			return count;
+		}
 }
